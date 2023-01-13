@@ -1,0 +1,250 @@
+    zfun.contactsHtml = `
+          <div id="mainInvoiceRow" style="display: flex; flex-direction: row; width: 100%" >
+                <div id="firstInfoBar" style="display: flex; flex-direction: column; justify-content: center; padding: 20px; width: 35%">
+                    <div style="background: rgba(136, 159, 183, 0.15);  border-radius: 12px; padding: 5px; display: flex; align-items: center; width: fit-content;">
+        	                   
+        	                    <span style="font-size: 12px; line-height: 120%; font-weight: 400; margin-right: 4px;">
+        	                        # {{item.profile_id}}
+        	                    </span>
+        	                    <h3 style="font-size: 12px; font-weight: 400; margin-bottom: 0px; ">{{item.full_name}}</h3>
+        	                </div>
+                   <h3 style="font-size: 14px; color: grey; margin-top: 5px; font-weight: 400;">{{ moment(item.field_2).format('DD.MM.YYYY')}}</h3>
+                    
+                </div>
+                <div id="secondInfoBar" style="display: flex; justify-content: center; flex-direction: column; padding: 20px;  width: 30%; "> 
+                    <h3 style="font-size: 14px; font-weight: 400;"><i class="ri-building-4-line" style="margin-right:5px;"></i>{{item.field_114}}</h3>
+                    <h3 style="font-size: 14px; font-weight: 400;"><i class="fa fa-address-card" style="margin-right:5px;"></i>{{item.field_139}}</h3>
+                   
+                </div>
+                <div id="thirdInfoBar" style="display:flex; flex-direction: column; padding: 20px;  width: 30%;justify-content: center;">
+                    <h3 style="font-size: 14px; font-weight: 400;"><i class="ri-phone-line" style="margin-right:5px;"></i>{{item.field_121}}</h3>
+                    <h3 style="font-size: 14px; font-weight: 400;"><i class="ri-mail-line" style="margin-right:5px;"></i>{{item.field_120}}</h3>
+                </div>
+                <div id="changeInfo" style="display: flex; cursor: pointer; flex-direction: column; width: 5%; justify-content:center; align-item: center;">
+                    <i data-v-584670a0="" @click="{{ data = item; zfun.editContactDetails(data)}}" class="ri-arrow-right-s-line" style="font-size: 1.1em; color: rgb(200, 204, 210);"></i>
+                </div>
+                
+          </div>
+    `
+    
+    zfun.invoiceLayout = `
+          <div id="mainInvoiceRow" style="display: flex; flex-direction: row; width: 100%" >
+                <div id="statusBlock" style="display: flex; flex-direction: row; width: 20%; justify-content: left; padding: 25px; align-items: center; ">
+                   <div style="border: none; display: flex; justify-content: space-between; align-items: center; font-size: 16px; padding: 6px 11px; border-radius: 6px" >
+                    <i :class="item.statuIcon" :style="'color : '+ item.statusIconColor"></i>
+                    <div style="width: 100%; text-align: left; padding-left: 5px;">
+                        {{item.statusTitle}}
+                    </div>
+                </div>
+                </div>
+                <div style="display: flex; flex-direction: column; width: 30%; margin-left: 25px; justify-content: center;  padding: 10px; ">
+                    <h3 id="invoiceName" style="font-size: 14px; font-weight: 400;" >Creator:</h3>
+                    <h3 id="invoiceCompanyName" style="font-size: 14px; font-weight: 300;" >{{item.creator}}</h3>
+                </div>
+                <div style="display: flex; flex-direction: row; width: 30%; gap: 10px; ">
+                    <div style="display: flex; flex-direction: row; align-items: center; justify-content: center; gap: 3px; margin-right: 10px;">
+                        <h3 id="viewAmountText" style="font-size: 14px; font-weight: 400;">{{item.field_1000847}}</h3>
+                        <i class="ri-eye-line" style="margin-bottom: 5px;"></i>
+                    </div>
+                    <h3 id="creationTimeText" style="font-size: 14px; font-weight: 400px; display: flex; align-items: center; justify-content: center;">{{item.date}}</h3>
+                    <h3 id="invoiceIdText" style="font-size: 14px; font-weight: 400; display: flex; align-items: center; justify-content: center; margin-left: 10px; ">I-2</h3>
+                </div>
+                
+                <div style="display: flex; flex-direction: row; align-items: center; justify-content: center;"> 
+                    <h3 style="font-size: 14px; font-weight: 700;">AED 100.00</h3>
+                </div>
+          </div>
+       `
+       
+    zfun.dealsLayout = ` <div class="section_container" style="position: relative">
+        <div class="ribbon_container" style="position: absolute; height: 100%; top: 0; left: 0">
+    				<!-- Элемент -->
+    				<div
+    					v-if="zfun.windowHeight > 500 && item.field_3 != 1"
+    					class="ribbon-line cursor_show"
+    					
+    					:style="{ 'border-color': item.dealColor, '--bg-color-for-ribbon': item.dealColor }"
+    				></div>
+    				<div
+    					v-else
+    					class="ribbon-line"
+    					v-bind:style="{ 'border-color': item.dealColor, '--bg-color-for-ribbon': item.dealColor }"
+    				></div>
+    			</div>
+            <div style="position: relative; display: flex; justify-content: space-between; width: 100%">
+                <div style="position: absolute; top: 4rem;">
+                    <div :id="'color_modal_' + item.profile_id" style="position: relative; display: none; width: 31rem; height: 4rem; background: rgba(22, 39, 53, 0.9); backdrop-filter: blur(0.125rem); border-radius: 2rem 2rem 2rem 0.25rem; align-items: center; justify-content: space-evenly; top: -4rem; left: 1.6rem; z-index: 3;">
+                        <div v-for="color in zfun.colorPreset" class="outer_btn_border" style="display: flex; align-self: center; justify-content: center; width: 2.25rem; height: 2.25rem; border-radius: 1.25rem;" :style="[item.dealColor == color.hex_code ? { 'background': '#ffffff' } : { }]">
+                        <button class="custom_effects"
+                                :style="[item.dealColor == color.hex_code ? { 'border': '0.18rem solid #FFFFFF', 'background': color.hex_code} : { 'background': color.hex_code }]"
+                                
+                                style="display: flex; outline: transparent; width: 2rem; height: 2rem; border-radius: 1.125rem; z-index: 2; align-self: center; justify-content: center; cursor: pointer;">
+                            <i class="ri-check-line" v-if="item.dealColor == color.hex_code" style="align-self: center; font-size: 1.5em; color: #ffffff; margin: 0;"></i>
+                        </button>
+                        </div>
+                    </div>
+                </div>
+    			<div style="display: flex; flex-direction: column; justify-content: center; width: 27%; margin-left: 14px;">
+                     <div style="width: fit-content; min-height: 1.375rem; margin-bottom: 0.4rem; font-size: 12px; padding: 1px 6px; background: rgb(136 159 183 / 15%); border-radius: 0.688rem;">
+                            # {{ item.profile_id }} {{ item.templateName }}
+                    </div>
+                        <div>
+                            <span style="font-size: 0.77em; font-weight: 400; line-height: 120%; color: #777777;">{{ moment(item.field_1).format('DD.MM.YYYY') }}</span>
+                        </div>
+                       
+                </div>
+                <div style="display: flex; flex-direction: column; justify-content: center; align-items: flex-start; width: 42%;">
+                    
+                       
+                            <div style="margin-top: 0.5rem; text-overflow: ellipsis;">
+                                <p style="font-size: 14px; margin-top: 10px; margin-bottom: 5px;"><i class="fa fa-user"></i> <span style="font-size: 0.75em; font-weight: 400; line-height: 120%; color: #777777;">{{ item.field_10_display }}</span>
+                                <p style="font-size: 0.75em;"><i style="font-size: 14px" class="fa fa-comments"></i>{{ item.field_219 }}</p>
+                            </div>
+                           
+                </div>
+                <div style="display: flex; align-items: center; justify-content: space-between; width: 21%;" >
+                    <div style="display: flex; flex-direction: column; justify-content: center; width: 8rem;">
+                        <div style="margin-bottom: 5px; margin-top: 10px;  min-height: 1.063rem; font-weight: 500; font-size: 0.86em; line-height: 120%; color: rgb(119, 119, 119);">{{item.field_468 != null ? OwnerNumber(item.field_468) : 0}} ${z_owner_data.main_currency}</div>
+                        <div style="display: flex; align-items: center; font-size: 14px;">
+							<i style="color: 1DCC9B; margin-right: 6px" class="deal_icon-center fa fa-check" v-if="item.statusID == 'Completed'"></i>
+							<i style="color: FB923C; margin-right: 6px"  class="deal_icon-center fa fa-spinner" v-if="item.statusID == 'In process'"></i>
+							<i style="color: F87171; margin-right: 6px" class="deal_icon-center fa fa-clock-o" v-if="item.statusID == 'Overdue'"></i>
+							<p class="m-0 w-100">{{ item.statusTitle }}</p>
+						</div>
+						<div
+							class="deal__info-reminder just_reverse" 
+							v-if="item.field_3 != 1" style="display: flex; align-items: center; margin-bottom: 10px; font-size: 14px;">
+						    <i class="deal_icon-center fa fa-bell"></i>
+							<p class="m-0"> <i>{{ zfun.getNotificationTime(item) }}</i></p>
+							
+							<div v-if="item.lastStepTitle" class="transaction_comment" style="padding-left: 4px; margin-top: 9.33px; position: relative">
+                            <div class="transaction_comment_message" style="display: none; position: absolute; background: rgba(22, 39, 53, 0.9); max-width: 256px; border-radius: 16px; color: #FFFFFF; font-size: 12px; right: 60px; padding: 8px 16px; bottom: calc(100% + 10px); ">
+                               {{item.lastStepTitle}}
+                            </div>
+                        </div>
+                    
+						</div>
+						
+						<div class="deal__info-reminder" v-else-if="item.field_3 != 1" style="display: flex;  align-items: center; font-size: 14px;">
+							<i class="deal_icon-center fa fa-bell"></i>
+							<p class="m-0 w-100">{{ zfun.getNotificationTime(item) }} <i v-if="item.field_4">{{'- ' + item.lastStepTitle }}</i></p>
+						</div>
+                        
+						
+                    </div>
+                  
+                </div>
+            </div>
+        </div>`
+       
+   
+    zfun.clientInfoLayout = `
+    <div id="clientInfoBlock" style="width: 100%; overflow: scroll; height: calc(100% - 92px);">
+        <div id="save_info_block_disabled" style="display: flex; align-items: center; justify-content: center; position: fixed; bottom: 0px; left: 10; right: 10; padding: 20px; ">
+            <button class="saveInfoButton" style="background-color: #2196F3; border-radius: 7px; display: flex; width: 100%; border: 1px white solid; padding: 10px; align-items: center; justify-content: center; color: white; cursor: default; opacity: 0.3">
+            <i class="ri-save-fill" style="color: white; font-size: 20px; margin-right: 3px;"></i>
+            ${zLang('save')}</button> 
+        </div>
+        <div id="save_info_block" style="display: none; align-items: center; justify-content: center; position: fixed; bottom: 0px; left: 10; right: 10; padding: 20px; ">
+            <button class="saveInfoButton" style="background-color: #2196F3; border-radius: 7px; display: flex; width: 100%; border: 1px white solid; padding: 10px; align-items: center; justify-content: center; color: white">
+            <i class="ri-save-fill" style="color: white; font-size: 20px; margin-right: 3px;"></i>
+            ${zLang('save')}</button> 
+        </div>
+    </div>
+    `
+    
+    
+ 
+    
+    
+    zfun.projectListLayout = `
+	    <div style="display: flex; justify-content: space-between; padding-right: 10px; color: #506070">
+			<div style="display: flex">
+				<div style="display: flex; justify-content: center; padding-right: 10px">
+					<div
+						style="
+							width: 50px;
+							height: 50px;
+							border-radius: 50%;
+							text-align: center;
+							display: flex;
+							align-self: center;
+							flex-direction: column;
+							justify-content: center;
+							box-shadow: 0px 0px 15px 2px rgba(47, 47, 47, 0.25) inset;
+						"
+					>
+						<div v-if="item.field_3 == 'edit'">
+							<i style="font-size: 25px; margin: 0" class="fa fa-pencil" aria-hidden="true"></i>
+						</div>
+						<div v-if="item.field_3 == 'in_process'">
+							<i style="font-size: 25px; margin: 0" class="fa fa-spinner" aria-hidden="true"></i>
+						</div>
+						<div v-if="item.field_3 == 'complete'">
+							<i style="font-size: 25px; margin: 0" class="fa fa-check" aria-hidden="true"></i>
+						</div>
+						<div v-if="item.field_3 == 'cancel'">
+							<i style="font-size: 25px; margin: 0" class="fa fa-times" aria-hidden="true"></i>
+						</div>
+					</div>
+				</div>
+				<div style="display: flex; flex-direction: column">
+					<span style="font-size: 15px">{{item.field_111}}</span>
+					<span>${zLang("Members: ", "Участники: ")}{{item.members_count}}</span>
+					<span style="margin-top: 5px">{{item.project_type}}</span>
+				</div>
+			</div>
+			<div style="display: flex; flex-direction: column">
+				<div v-if="item.field_3 == 'in_process'" style="display: flex; align-self: flex-end">
+					<div style="padding-right: 10px; margin-bottom: 7px">
+						<span>{{item.field_3_display}}</span>
+					</div>
+					
+				</div>
+				<div v-if="item.field_3 == 'edit'" style="display: flex; align-self: flex-end">
+					<div style="padding-right: 10px; margin-bottom: 7px">
+						<span>${zLang('Editing','На редактировании')}</span>
+					</div>
+					
+				</div>
+				<div v-if="item.field_3 == 'complete'" style="display: flex; align-self: flex-end">
+					<div style="padding-right: 10px; margin-bottom: 7px">
+						<span>${zLang('Complete','Завершён')}</span>
+					</div>
+					
+				</div>
+				<div v-if="item.field_3 == 'cancel'" style="display: flex; align-self: flex-end">
+					<div style="padding-right: 10px; margin-bottom: 7px">
+						<span>${zLang('Canceled','Отменён')}</span>
+					</div>
+					
+				</div>
+				<div style="text-align: right; min-width: 145px; width: fit-content; display: flex; flex-direction: column">
+					<div>
+    	                {{ (parseFloat(item.amount) * 100 / parseFloat(item.field_1000603)).toFixed(2) }}% / {{ item.field_7099 || attached_functions.owner_currency}} {{OwnerNumber(item.amount,1)}} / {{ item.field_7099 || attached_functions.owner_currency}} {{OwnerNumber(item.balance)}}
+    	            </div>
+    	            <div v-if="item.status == 'paid'">
+                        ${'Payment received','Оплата поступила'} <div style="display: inline-block; background : green; border-radius : 50%; width: 10px; height: 10px"></div>
+                    </div>
+                    <div v-if="item.status == 'part'">
+                        ${'Partial payment','Частичная оплата'} <div style="display: inline-block; background : #fe7a0e; border-radius : 50%; width: 10px; height: 10px"></div>
+                    </div>
+                    <div v-if="item.status == 'not_paid'">
+                        ${'Awaiting payment','Ожидаем оплаты'} <div style="display: inline-block; background : red; border-radius : 50%; width: 10px; height: 10px"></div>
+                    </div>
+				</div>
+			</div>
+		</div>
+		<div style="display: flex; justify-content: space-between; padding-right: 10px; color: #506070; margin-top: 10px">
+			<div style="display: flex; flex-direction: column">
+				<span v-if="item.field_860 && item.selected">${zLang("Start date: ","Дата начала: ")}{{item.field_860}}</span>
+				<span v-if="item.field_219 && item.selected" style="max-width: 555px">${zLang("Comment: ", "Комментарий: ")}{{item.field_219}}</span>
+			</div>
+			<div style="display: flex; align-items: center">
+				<button v-if="item.selected" @click="openProject(item)" style="padding: 5px 10px; background-color: #36a0fb; border-radius: 10px; color: #ffffff; width: 100px;">
+					<i class="fa fa-folder-open" aria-hidden="true"></i>
+					${zLang('Open','Открыть')}
+				</button>
+			</div>
+		</div>
+	`;
